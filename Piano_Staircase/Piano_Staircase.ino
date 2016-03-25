@@ -11,10 +11,6 @@
 // Connect CLK, MISO and MOSI to hardware SPI pins. 
 // See http://arduino.cc/en/Reference/SPI "Connections"
 
-// These are the pins used for the breakout example
-#define BREAKOUT_RESET  9      // VS1053 reset pin (output)
-#define BREAKOUT_CS     10     // VS1053 chip select pin (output)
-#define BREAKOUT_DCS    8      // VS1053 Data/command select pin (output)
 // These are the pins used for the music maker shield
 #define SHIELD_RESET  -1      // VS1053 reset pin (unused!)
 #define SHIELD_CS     7      // VS1053 chip select pin (output)
@@ -30,7 +26,7 @@ Adafruit_VS1053_FilePlayer musicPlayer =
 
 
 
-
+//Arduino IO pins
 const uint8_t step_00 = 0;
 const uint8_t step_01 = 1;
 const uint8_t step_02 = 2;
@@ -42,12 +38,29 @@ const uint8_t step_07 = 7;
 const uint8_t step_08 = 8;
 const uint8_t step_09 = 9;
 const uint8_t step_10 = 10;
+const uint8_t step_00 = 11;
+const uint8_t step_01 = 12;
+const uint8_t step_03 = 13;
+const uint8_t step_04 = 14;
+const uint8_t step_05 = 15;
+const uint8_t step_06 = 16;
+const uint8_t step_07 = 17;
+const uint8_t step_08 = 18;
+const uint8_t step_09 = 19;
+const uint8_t step_10 = 20;
+const uint8_t step_00 = 21;
+const uint8_t step_02 = 22;
+const uint8_t step_03 = 23;
+const uint8_t step_04 = 24;
 
-const uint8_t step_arrays[] = {step_00, step_01, step_02, step_03, step_04,
-                               step_05, step_06, step_07, step_08, step_09, step_10
-                              };
+const uint8_t step_arrays[] =
+  {step_00, step_01, step_02, step_03, step_04,
+   step_05, step_06, step_07, step_08, step_09, step_10,
+   step_11, step_12, step_13, step_14, step_15, step_16,
+   step_17, step_18, step_19, step_20, step_21, step_22,
+   step_23, step_24 };
 
-const uint8_t numSteps = 11;
+const uint8_t numSteps = 25; //two octaves
 
 
 void setup()
@@ -96,11 +109,15 @@ void checkSensors()
 	{
 		if (!digitalRead(step_arrays[i]))
 		{
-			playNote(step_array[i]);
+      musicPlayer.startPlayingFile("insert file name here");
 		}
 	}
 }
 
+void changeInstrument()
+{
+  
+}
 
 void initializeDigitalInputs()
 {
