@@ -87,6 +87,7 @@ String xylophone[numKeys] = {"Xy1_C5.mp3", "Xy2_Db5.mp3",
   "Xy19_Gb6.mp3","Xy20_G6.mp3", "Xy21_Ab6.mp3", "Xy22_A6.mp3",
   "Xy23_Bb6.mp3", "Xy24_B6.mp3", "Xy25_C7.mp3" };
 
+uint8_t array[350] = {0};
 
 
 // include SPI, MP3 and SD libraries
@@ -122,11 +123,11 @@ Adafruit_VS1053_FilePlayer musicPlayer =
   Adafruit_VS1053_FilePlayer(SHIELD_RESET, SHIELD_CS, SHIELD_DCS, DREQ, CARDCS);
 
 
-char filename[12];
+char filename[15];
 int i = 0;
   
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.println("Adafruit VS1053 Simple Test");
 
   if (! musicPlayer.begin()) { // initialise the music player
@@ -172,12 +173,12 @@ void loop()
     filename[i] = 0;
   }
   
-  piano[i].toCharArray(filename, 15);
+  clarinet[i].toCharArray(filename, 15);
   musicPlayer.startPlayingFile(filename);
-  //Serial.println(filename);
+  Serial.println(filename);
 
   unsigned long startTime = millis();
-  while ((millis()-startTime) < 100);
+  while ((millis()-startTime) < 75);
   
   musicPlayer.stopPlaying();
 

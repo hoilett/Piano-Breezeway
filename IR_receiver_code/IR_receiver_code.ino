@@ -2,7 +2,7 @@
 
 #define irSensorPin 5       // IR sensor on this pin
 int val;
-const uint8_t sync = 8;
+const uint8_t sync = 8; //hello world!
 
 uint8_t samples[100] = {0};
 
