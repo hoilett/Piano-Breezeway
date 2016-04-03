@@ -6,19 +6,20 @@ void setup()
   pinMode(IR_PIN,OUTPUT);
   pinMode(sync, OUTPUT);
   digitalWrite(sync, LOW);
-  delay(3000);
+  delay(1000);
 }
 
 void loop()
 {
   digitalWrite(sync, HIGH);
   int halfPeriod = 10;
-  int cycles = 600/30.0;
+  //int cycles = 600/30.0;
+  int cycles = 1200/30.0;
 
   //5*1550 ~ 7.75 ms ~ 7ms
   for (int i = 0; i < 5; i++)
   { 
-    //650 us 
+    //650 us //* 2
     for (int j = 0; j <= cycles; j++)
     {
       digitalWrite(IR_PIN, HIGH);
@@ -29,7 +30,8 @@ void loop()
 
     //900 us
     digitalWrite(IR_PIN,LOW);
-    delayMicroseconds(900);
+    //delayMicroseconds(900);
+    delayMicroseconds(600);
   }
 
   digitalWrite(sync, LOW);

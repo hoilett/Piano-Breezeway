@@ -173,12 +173,12 @@ void loop()
     filename[i] = 0;
   }
   
-  clarinet[i].toCharArray(filename, 15);
+  steelDrum[i].toCharArray(filename, 15);
   musicPlayer.startPlayingFile(filename);
   Serial.println(filename);
 
   unsigned long startTime = millis();
-  while ((millis()-startTime) < 75);
+  while ((millis()-startTime) < 150);
   
   musicPlayer.stopPlaying();
 
