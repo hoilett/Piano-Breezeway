@@ -4,10 +4,7 @@
 int val;
 const uint8_t sync = 8;
 
-uint8_t samples[400] = {0};
-
-//You're a bitch
-//I know I am
+uint8_t samples[100] = {0};
 
 void setup()
 {
@@ -23,18 +20,21 @@ void setup()
 void loop()
 {
   uint8_t i = 0;
-  
+
   while(!digitalRead(sync));
   
   while (digitalRead(sync))
   {
-    samples[i] = (uint8_t)digitalRead(irSensorPin);
-    delayMicroseconds(4);
-    if(Serial.read() == '0') Serial.end();
+    if(digitalRead(irSensorPin)) samples[i] = 1;
+    else samples[i] = 0;
+    delayMicroseconds(20);
     i++;
+    if (i >= 100) i = 0;
   }
 
-  for (uint8_t j = 0; j < 400; j++)
+  if(trigger) //playNote
+
+  for (uint8_t j = 0; j < 100; j++)
   {
     Serial.print(samples[j]);
   }

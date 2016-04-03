@@ -1,6 +1,30 @@
+/*************************************************** 
+  This is an example for the Adafruit VS1053 Codec Breakout
+
+  Designed specifically to work with the Adafruit VS1053 Codec Breakout 
+  ----> https://www.adafruit.com/products/1381
+
+  Adafrit invests time and resources providing this open source code, 
+  please support Adafruit and open-source hardware by purchasing 
+  products from Adafruit!
+
+  Written by Limor Fried/Ladyada for Adafruit Industries.  
+  BSD license, all text above must be included in any redistribution
+ ****************************************************/
+
+//const int numKeys = 25;
+//
+//String piano[numKeys] = {"pi40_C4.mp3", "pi41.mp3", "pi42.mp3",
+//  "pi43.mp3", "pi44.mp3", "pi45.mp3", "pi46.mp3", "pi47.mp3",
+//  "pi48.mp3", "pi49.mp3", "pi50.mp3", "pi51.mp3", "pi52_C5.mp3",
+//  "pi53.mp3", "pi54.mp3", "pi55.mp3", "pi56.mp3", "pi57.mp3",
+//  "pi58.mp3", "pi59.mp3", "pi60.mp3", "pi61.mp3", "pi62.mp3",
+//  "pi63.mp3", "pi64_C6.mp3" };
+
+
 const uint8_t numKeys = 25;
 
-//not okay
+//play every 75ms
 String cello[numKeys] = {"Ce1_C2.mp3", "Ce2_Db2.mp3", "Ce3_D2.mp3",
   "Ce4_Eb2.mp3", "Ce5_E2.mp3", "Ce6_F2.mp3", "Ce7_Gb2.mp3",
   "Ce8_G2.mp3", "Ce9_Ab2.mp3", "Ce10_A2.mp3", "Ce11_Bb2.mp3",
@@ -18,7 +42,7 @@ String clarinet[numKeys] = {"Cl1_C4.mp3", "Cl2_Db4.mp3", "Cl3_D4.mp3",
   "Cl20_G5.mp3", "Cl21_Ab5.mp3", "Cl22_A5.mp3", "Cl23_Bb5.mp3",
   "Cl24_B5.mp3", "Cl25_C6.mp3"};
 
-//good
+//150ms
 String guitar[numKeys] = {"Gu1_C1.mp3", "Gu2_Db1.mp3",
   "Gu3_D1.mp3", "Gu4_Eb1.mp3", "Gu5_E1.mp3", "Gu6_F1.mp3",
   "Gu7_Gb1.mp3", "Gu8_G1.mp3", "Gu9_Ab1.mp3", "Gu10_A1.mp3",
@@ -27,6 +51,7 @@ String guitar[numKeys] = {"Gu1_C1.mp3", "Gu2_Db1.mp3",
   "Gu19_Gb2.mp3", "Gu20_G2.mp3", "Gu21_Ab2.mp3", "Gu22_A2.mp3",
   "Gu23_Bb2.mp3", "Gu24_B2.mp3", "Gu25_C3.mp3" };
 
+//20ms
 //sounds great!
 String piano[numKeys] = {"pi40_C4.mp3", "pi41.mp3", "pi42.mp3",
   "pi43.mp3", "pi44.mp3", "pi45.mp3", "pi46.mp3", "pi47.mp3",
@@ -35,7 +60,7 @@ String piano[numKeys] = {"pi40_C4.mp3", "pi41.mp3", "pi42.mp3",
   "pi58.mp3", "pi59.mp3", "pi60.mp3", "pi61.mp3", "pi62.mp3",
   "pi63.mp3", "pi64_C6.mp3" };
 
-//fine
+//200ms
 String sexyphone[numKeys] = {"Sa1_C3.mp3", "Sa2_Db3.mp3",
   "Sa3_D3.mp3", "Sa4_Eb3.mp3", "Sa5_E3.mp3", "Sa6_F3.mp3",
   "Sa7_Gb3.mp3", "Sa8_G3.mp3", "Sa9_Ab3.mp3", "Sa10_A3.mp3",
@@ -44,7 +69,7 @@ String sexyphone[numKeys] = {"Sa1_C3.mp3", "Sa2_Db3.mp3",
   "Sa19_Gb4.mp3", "Sa20_G4.mp3", "Sa21_Ab4.mp3", "Sa22_A4.mp3",
   "Sa23_Bb4.mp3", "Sa24_B4.mp3", "Sa25_C5.mp3" };
 
-//good - maybe two or three come in a little late
+//150ms
 String steelDrum[numKeys] = {"SD1_C1.mp3", "SD2_Db1.mp3",
   "SD3_D1.mp3", "SD4_Eb1.mp3", "SD5_E1.mp3", "SD6_F1.mp3",
   "SD7_Gb1.mp3", "SD8_G1.mp3", "SD9_Ab1.mp3", "SD10_A1.mp3",
@@ -53,7 +78,7 @@ String steelDrum[numKeys] = {"SD1_C1.mp3", "SD2_Db1.mp3",
   "SD19_Gb2.mp3", "SD20_G2.mp3", "SD21_Ab2.mp3", "SD22_A2.mp3",
   "SD23_Bb2.mp3", "SD24_B2.mp3", "SD25_C3.mp3" };
 
-//good - one off Db5
+//50ms
 String xylophone[numKeys] = {"Xy1_C5.mp3", "Xy2_Db5.mp3",
   "Xy3_D5.mp3", "Xy4_Eb5.mp3", "Xy5_E5.mp3", "Xy6_F5.mp3",
   "Xy7_Gb5.mp3", "Xy8_G5.mp3", "Xy9_Ab5.mp3", "Xy10_A5.mp3",
@@ -69,7 +94,6 @@ String xylophone[numKeys] = {"Xy1_C5.mp3", "Xy2_Db5.mp3",
 #include <Adafruit_VS1053.h>
 #include <SD.h>
 
-
 // define the pins used
 #define CLK 13       // SPI Clock, shared with SD card
 #define MISO 12      // Input data, from VS1053/SD card
@@ -77,6 +101,10 @@ String xylophone[numKeys] = {"Xy1_C5.mp3", "Xy2_Db5.mp3",
 // Connect CLK, MISO and MOSI to hardware SPI pins. 
 // See http://arduino.cc/en/Reference/SPI "Connections"
 
+// These are the pins used for the breakout example
+#define BREAKOUT_RESET  9      // VS1053 reset pin (output)
+#define BREAKOUT_CS     10     // VS1053 chip select pin (output)
+#define BREAKOUT_DCS    8      // VS1053 Data/command select pin (output)
 // These are the pins used for the music maker shield
 #define SHIELD_RESET  -1      // VS1053 reset pin (unused!)
 #define SHIELD_CS     7      // VS1053 chip select pin (output)
@@ -87,56 +115,18 @@ String xylophone[numKeys] = {"Xy1_C5.mp3", "Xy2_Db5.mp3",
 // DREQ should be an Int pin, see http://arduino.cc/en/Reference/attachInterrupt
 #define DREQ 3       // VS1053 Data request, ideally an Interrupt pin
 
-Adafruit_VS1053_FilePlayer musicPlayer =
-    Adafruit_VS1053_FilePlayer(SHIELD_RESET, SHIELD_CS, SHIELD_DCS, DREQ, CARDCS);
+Adafruit_VS1053_FilePlayer musicPlayer = 
+  // create breakout-example object!
+  //Adafruit_VS1053_FilePlayer(BREAKOUT_RESET, BREAKOUT_CS, BREAKOUT_DCS, DREQ, CARDCS);
+  // create shield-example object!
+  Adafruit_VS1053_FilePlayer(SHIELD_RESET, SHIELD_CS, SHIELD_DCS, DREQ, CARDCS);
 
-char filename[14];
+
+char filename[12];
 int i = 0;
-
-
-//Arduino IO pins
-const uint8_t step_00 = 0;
-const uint8_t step_01 = 1;
-const uint8_t step_02 = 2;
-const uint8_t step_03 = 3;
-const uint8_t step_04 = 4;
-const uint8_t step_05 = 5;
-const uint8_t step_06 = 6;
-const uint8_t step_07 = 7;
-const uint8_t step_08 = 8;
-const uint8_t step_09 = 9;
-const uint8_t step_10 = 10;
-const uint8_t step_00 = 11;
-const uint8_t step_01 = 12;
-const uint8_t step_03 = 13;
-const uint8_t step_04 = 14;
-const uint8_t step_05 = 15;
-const uint8_t step_06 = 16;
-const uint8_t step_07 = 17;
-const uint8_t step_08 = 18;
-const uint8_t step_09 = 19;
-const uint8_t step_10 = 20;
-const uint8_t step_00 = 21;
-const uint8_t step_02 = 22;
-const uint8_t step_03 = 23;
-const uint8_t step_04 = 24;
-
-const uint8_t step_arrays[] =
-  {step_00, step_01, step_02, step_03, step_04,
-   step_05, step_06, step_07, step_08, step_09, step_10,
-   step_11, step_12, step_13, step_14, step_15, step_16,
-   step_17, step_18, step_19, step_20, step_21, step_22,
-   step_23, step_24 };
-
-const uint8_t numSteps = 25; //two octaves
-
-
-void setup()
-{
-	Serial.begin(115200);
-	initializeDigitalInputs();
-
-
+  
+void setup() {
+  Serial.begin(9600);
   Serial.println("Adafruit VS1053 Simple Test");
 
   if (! musicPlayer.begin()) { // initialise the music player
@@ -148,7 +138,7 @@ void setup()
   SD.begin(CARDCS);    // initialise the SD card
   
   // Set volume for left, right channels. lower numbers == louder volume!
-  musicPlayer.setVolume(20,20);
+  musicPlayer.setVolume(5,5);
 
   // Timer interrupts are not suggested, better to use DREQ interrupt!
   //musicPlayer.useInterrupt(VS1053_FILEPLAYER_TIMER0_INT); // timer int
@@ -156,54 +146,42 @@ void setup()
   // If DREQ is on an interrupt pin (on uno, #2 or #3) we can do background
   // audio playing
   musicPlayer.useInterrupt(VS1053_FILEPLAYER_PIN_INT);  // DREQ int
-  
-  // Play one file, don't return until complete
-  Serial.println(F("Playing track 001"));
-  musicPlayer.playFullFile("track001.mp3");
-  // Play another file in the background, REQUIRES interrupts!
-  Serial.println(F("Playing track 002"));
-  musicPlayer.startPlayingFile("track002.mp3");
+
+//  for (int i = 0; i < numKeys; i++)
+//  {
+//    char filename[12];
+//    cello[i].toCharArray(filename, 12);
+//    musicPlayer.startPlayingFile(filename);
+//    //musicPlayer.playFullFile(filename);
+//    Serial.println(filename);
+//
+//    unsigned long startTime = millis();
+//    while ((millis()-startTime) < 200);
+//    
+//    //delay(300);
+//    musicPlayer.stopPlaying();
+//  }
+
+  //musicPlayer.startPlayingFile("Xy16_Eb6.mp3");
 }
 
 void loop()
 {
-	checkSensors();
-}
-
-
-void checkSensors()
-{
-	for (uint8_t i = 0; i < numSteps; i++)
-	{
-		if (!digitalRead(step_arrays[i]))
-		{
-      musicPlayer.startPlayingFile("insert file name here");
-		}
-	}
-}
-
-void changeInstrument()
-{
+  for (int i = 0; i < 15; i++)
+  {
+    filename[i] = 0;
+  }
   
+  piano[i].toCharArray(filename, 15);
+  musicPlayer.startPlayingFile(filename);
+  //Serial.println(filename);
+
+  unsigned long startTime = millis();
+  while ((millis()-startTime) < 100);
+  
+  musicPlayer.stopPlaying();
+
+  i++;
+
+  if (i == 25) i = 0;
 }
-
-void initializeDigitalInputs()
-{
-	for (uint8_t i = 0; i < numSteps; i++)
-	{
-		pinMode(step_arrays[i], INTPUT);
-	}
-}
-
-
-
-/*
- * LAYOUT
- *
- * 1. Each step has an IR led and IR receiver pair
- * 2. The IR LEDs are pulsed at the appropriate carrier frequency
- *    of the IR detector (38.5 kHz)
- * 3. When IR LED & detector pair are interrupted, a "step" has
- *    been made
- * 4. Triggers signal to play a "note"
- */
