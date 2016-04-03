@@ -15,8 +15,10 @@ void loop()
   int halfPeriod = 10;
   int cycles = 600/30.0;
 
+  //5*1550 ~ 7.75 ms
   for (int i = 0; i < 5; i++)
-  {  
+  { 
+    //650 us 
     for (int j = 0; j <= cycles; j++)
     {
       digitalWrite(IR_PIN, HIGH);
@@ -24,7 +26,8 @@ void loop()
       digitalWrite(IR_PIN, LOW);
       delayMicroseconds(halfPeriod-1);  
     }
-  
+
+    //900 us
     digitalWrite(IR_PIN,LOW);
     delayMicroseconds(900);
   }
