@@ -7,6 +7,7 @@ const uint8_t sync = 8;
 uint8_t samples[400] = {0};
 
 //You're a bitch
+//I know I am
 
 void setup()
 {
