@@ -15,7 +15,7 @@ void loop()
   int halfPeriod = 10;
   int cycles = 600/30.0;
 
-  //5*1550 ~ 7.75 ms
+  //5*1550 ~ 7.75 ms ~ 7ms
   for (int i = 0; i < 5; i++)
   { 
     //650 us 

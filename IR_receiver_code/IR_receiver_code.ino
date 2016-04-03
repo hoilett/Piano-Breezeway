@@ -70,34 +70,35 @@ const uint8_t step_array[] =
 
 
 uint8_t samples00[30] = {0};
-uint8_t samples01[30] = {0};
-uint8_t samples02[30] = {0};
-uint8_t samples03[30] = {0};
-uint8_t samples04[30] = {0};
-uint8_t samples05[30] = {0};
-uint8_t samples06[30] = {0};
-uint8_t samples07[30] = {0};
-uint8_t samples08[30] = {0};
-uint8_t samples09[30] = {0};
-uint8_t samples10[30] = {0};
-uint8_t samples11[30] = {0};
-uint8_t samples12[30] = {0};
-uint8_t samples13[30] = {0};
-uint8_t samples14[30] = {0};
-uint8_t samples15[30] = {0};
-uint8_t samples16[30] = {0};
-uint8_t samples17[30] = {0};
-uint8_t samples18[30] = {0};
-uint8_t samples19[30] = {0};
-uint8_t samples20[30] = {0};
-uint8_t samples21[30] = {0};
-uint8_t samples22[30] = {0};
-uint8_t samples23[30] = {0};
-uint8_t samples24[30] = {0};
+//uint8_t samples01[15] = {0};
+//uint8_t samples02[15] = {0};
+//uint8_t samples03[15] = {0};
+//uint8_t samples04[15] = {0};
+//uint8_t samples05[15] = {0};
+//uint8_t samples06[15] = {0};
+//uint8_t samples07[15] = {0};
+//uint8_t samples08[15] = {0};
+//uint8_t samples09[15] = {0};
+//uint8_t samples10[15] = {0};
+//uint8_t samples11[15] = {0};
+//uint8_t samples12[15] = {0};
+//uint8_t samples13[15] = {0};
+//uint8_t samples14[15] = {0};
+//uint8_t samples15[15] = {0};
+//uint8_t samples16[15] = {0};
+//uint8_t samples17[15] = {0};
+//uint8_t samples18[15] = {0};
+//uint8_t samples19[15] = {0};
+//uint8_t samples20[15] = {0};
+//uint8_t samples21[15] = {0};
+//uint8_t samples22[15] = {0};
+//uint8_t samples23[15] = {0};
+//uint8_t samples24[15] = {0};
 
 const uint8_t numSteps = 25; //two octaves
 
 uint8_t i = 0;
+uint8_t m = 0;
 
 void setup()
 {
@@ -119,38 +120,39 @@ void loop()
 //  while (digitalRead(sync))
 //  {
 
+  i = 0;
 //unsigned long ln1 = micros();
 while (i < 30)
 {
     //unsigned long ln1 = micros();
     samples00[i] = digitalRead(step_array[0]);
-    samples01[i] = digitalRead(step_array[1]);
-    samples02[i] = digitalRead(step_array[2]);
-    samples03[i] = digitalRead(step_array[3]);
-    samples04[i] = digitalRead(step_array[4]);
-    samples05[i] = digitalRead(step_array[5]);
-    samples06[i] = digitalRead(step_array[6]);
-    samples07[i] = digitalRead(step_array[7]);
-    samples08[i] = digitalRead(step_array[8]);
-    samples09[i] = digitalRead(step_array[9]);
-    samples10[i] = digitalRead(step_array[10]);
-    samples11[i] = digitalRead(step_array[11]);
-    samples12[i] = digitalRead(step_array[12]);
-    samples13[i] = digitalRead(step_array[13]);
-    samples14[i] = digitalRead(step_array[14]);
-    samples15[i] = digitalRead(step_array[15]);
-    samples16[i] = digitalRead(step_array[16]);
-    samples17[i] = digitalRead(step_array[17]);
-    samples18[i] = digitalRead(step_array[18]);
-    samples19[i] = digitalRead(step_array[19]);
-    samples20[i] = digitalRead(step_array[20]);
-    samples21[i] = digitalRead(step_array[21]);
-    samples22[i] = digitalRead(step_array[22]);
-    samples23[i] = digitalRead(step_array[23]);
-    samples24[i] = digitalRead(step_array[24]);
-    //unsigned long ln2 = micros();
+//    samples01[i] = digitalRead(step_array[1]);
+//    samples02[i] = digitalRead(step_array[2]);
+//    samples03[i] = digitalRead(step_array[3]);
+//    samples04[i] = digitalRead(step_array[4]);
+//    samples05[i] = digitalRead(step_array[5]);
+//    samples06[i] = digitalRead(step_array[6]);
+//    samples07[i] = digitalRead(step_array[7]);
+//    samples08[i] = digitalRead(step_array[8]);
+//    samples09[i] = digitalRead(step_array[9]);
+//    samples10[i] = digitalRead(step_array[10]);
+//    samples11[i] = digitalRead(step_array[11]);
+//    samples12[i] = digitalRead(step_array[12]);
+//    samples13[i] = digitalRead(step_array[13]);
+//    samples14[i] = digitalRead(step_array[14]);
+//    samples15[i] = digitalRead(step_array[15]);
+//    samples16[i] = digitalRead(step_array[16]);
+//    samples17[i] = digitalRead(step_array[17]);
+//    samples18[i] = digitalRead(step_array[18]);
+//    samples19[i] = digitalRead(step_array[19]);
+//    samples20[i] = digitalRead(step_array[20]);
+//    samples21[i] = digitalRead(step_array[21]);
+//    samples22[i] = digitalRead(step_array[22]);
+//    samples23[i] = digitalRead(step_array[23]);
+//    samples24[i] = digitalRead(step_array[24]);
+//    unsigned long ln2 = micros();
     i++;
-    delay(10);
+    //delay(10);
 //    Serial.println(ln1);
 //    Serial.println(ln2);
 }
@@ -175,176 +177,178 @@ while (i < 30)
   }
   Serial.println();
 
-  Serial.print("#01: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples01[j]);
-  }
-  Serial.println();
+//  Serial.print("#01: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples01[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#02: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples02[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#03: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples03[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#04: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples04[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#05: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples05[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#06: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples06[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#07: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples07[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#08: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples08[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#09: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples09[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#10: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples10[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#11: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples11[j]);
+//  }
+//  Serial.println();
+//  
+//  Serial.print("#12: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples12[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#13: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples13[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#14: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples14[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#15: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples15[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#16: ");
+//
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples16[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#17: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples17[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#18: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples18[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#19: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples19[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#20: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples20[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#21: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples21[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#22: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples22[j]);
+//  }
+//  Serial.println();
+//  
+//  Serial.print("#23: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples23[j]);
+//  }
+//  Serial.println();
+//
+//  Serial.print("#24: ");
+//  for (uint8_t j = 0; j < 15; j++)
+//  {
+//    Serial.print(samples24[j]);
+//  }
+//  Serial.println();
 
-  Serial.print("#02: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples02[j]);
-  }
-  Serial.println();
-
-  Serial.print("#03: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples03[j]);
-  }
-  Serial.println();
-
-  Serial.print("#04: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples04[j]);
-  }
-  Serial.println();
-
-  Serial.print("#05: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples05[j]);
-  }
-  Serial.println();
-
-  Serial.print("#06: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples06[j]);
-  }
-  Serial.println();
-
-  Serial.print("#07: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples07[j]);
-  }
-  Serial.println();
-
-  Serial.print("#08: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples08[j]);
-  }
-  Serial.println();
-
-  Serial.print("#09: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples09[j]);
-  }
-  Serial.println();
-
-  Serial.print("#10: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples10[j]);
-  }
-  Serial.println();
-
-  Serial.print("#11: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples11[j]);
-  }
-  Serial.println();
-  
-  Serial.print("#12: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples12[j]);
-  }
-  Serial.println();
-
-  Serial.print("#13: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples13[j]);
-  }
-  Serial.println();
-
-  Serial.print("#14: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples14[j]);
-  }
-  Serial.println();
-
-  Serial.print("#15: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples15[j]);
-  }
-  Serial.println();
-
-  Serial.print("#16: ");
-
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples16[j]);
-  }
-  Serial.println();
-
-  Serial.print("#17: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples17[j]);
-  }
-  Serial.println();
-
-  Serial.print("#18: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples18[j]);
-  }
-  Serial.println();
-
-  Serial.print("#19: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples19[j]);
-  }
-  Serial.println();
-
-  Serial.print("#20: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples20[j]);
-  }
-  Serial.println();
-
-  Serial.print("#21: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples21[j]);
-  }
-  Serial.println();
-
-  Serial.print("#22: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples22[j]);
-  }
-  Serial.println();
-  
-  Serial.print("#23: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples23[j]);
-  }
-  Serial.println();
-
-  Serial.print("#24: ");
-  for (uint8_t j = 0; j < 30; j++)
-  {
-    Serial.print(samples24[j]);
-  }
-  Serial.println();
-
-  Serial.end();
+  Serial.println('\n');
+  m++;
+  if (m == 30) Serial.end();
   
 }
 
