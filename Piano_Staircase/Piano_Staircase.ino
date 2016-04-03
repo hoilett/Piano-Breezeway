@@ -1,6 +1,6 @@
 const uint8_t numKeys = 25;
 
-//not okay
+//play every 75ms
 String cello[numKeys] = {"Ce1_C2.mp3", "Ce2_Db2.mp3", "Ce3_D2.mp3",
   "Ce4_Eb2.mp3", "Ce5_E2.mp3", "Ce6_F2.mp3", "Ce7_Gb2.mp3",
   "Ce8_G2.mp3", "Ce9_Ab2.mp3", "Ce10_A2.mp3", "Ce11_Bb2.mp3",
@@ -18,7 +18,7 @@ String clarinet[numKeys] = {"Cl1_C4.mp3", "Cl2_Db4.mp3", "Cl3_D4.mp3",
   "Cl20_G5.mp3", "Cl21_Ab5.mp3", "Cl22_A5.mp3", "Cl23_Bb5.mp3",
   "Cl24_B5.mp3", "Cl25_C6.mp3"};
 
-//good
+//150ms
 String guitar[numKeys] = {"Gu1_C1.mp3", "Gu2_Db1.mp3",
   "Gu3_D1.mp3", "Gu4_Eb1.mp3", "Gu5_E1.mp3", "Gu6_F1.mp3",
   "Gu7_Gb1.mp3", "Gu8_G1.mp3", "Gu9_Ab1.mp3", "Gu10_A1.mp3",
@@ -27,6 +27,7 @@ String guitar[numKeys] = {"Gu1_C1.mp3", "Gu2_Db1.mp3",
   "Gu19_Gb2.mp3", "Gu20_G2.mp3", "Gu21_Ab2.mp3", "Gu22_A2.mp3",
   "Gu23_Bb2.mp3", "Gu24_B2.mp3", "Gu25_C3.mp3" };
 
+//20ms
 //sounds great!
 String piano[numKeys] = {"pi40_C4.mp3", "pi41.mp3", "pi42.mp3",
   "pi43.mp3", "pi44.mp3", "pi45.mp3", "pi46.mp3", "pi47.mp3",
@@ -35,7 +36,7 @@ String piano[numKeys] = {"pi40_C4.mp3", "pi41.mp3", "pi42.mp3",
   "pi58.mp3", "pi59.mp3", "pi60.mp3", "pi61.mp3", "pi62.mp3",
   "pi63.mp3", "pi64_C6.mp3" };
 
-//fine
+//200ms
 String sexyphone[numKeys] = {"Sa1_C3.mp3", "Sa2_Db3.mp3",
   "Sa3_D3.mp3", "Sa4_Eb3.mp3", "Sa5_E3.mp3", "Sa6_F3.mp3",
   "Sa7_Gb3.mp3", "Sa8_G3.mp3", "Sa9_Ab3.mp3", "Sa10_A3.mp3",
@@ -44,7 +45,7 @@ String sexyphone[numKeys] = {"Sa1_C3.mp3", "Sa2_Db3.mp3",
   "Sa19_Gb4.mp3", "Sa20_G4.mp3", "Sa21_Ab4.mp3", "Sa22_A4.mp3",
   "Sa23_Bb4.mp3", "Sa24_B4.mp3", "Sa25_C5.mp3" };
 
-//good - maybe two or three come in a little late
+//150ms
 String steelDrum[numKeys] = {"SD1_C1.mp3", "SD2_Db1.mp3",
   "SD3_D1.mp3", "SD4_Eb1.mp3", "SD5_E1.mp3", "SD6_F1.mp3",
   "SD7_Gb1.mp3", "SD8_G1.mp3", "SD9_Ab1.mp3", "SD10_A1.mp3",
@@ -53,7 +54,7 @@ String steelDrum[numKeys] = {"SD1_C1.mp3", "SD2_Db1.mp3",
   "SD19_Gb2.mp3", "SD20_G2.mp3", "SD21_Ab2.mp3", "SD22_A2.mp3",
   "SD23_Bb2.mp3", "SD24_B2.mp3", "SD25_C3.mp3" };
 
-//good - one off Db5
+//50ms
 String xylophone[numKeys] = {"Xy1_C5.mp3", "Xy2_Db5.mp3",
   "Xy3_D5.mp3", "Xy4_Eb5.mp3", "Xy5_E5.mp3", "Xy6_F5.mp3",
   "Xy7_Gb5.mp3", "Xy8_G5.mp3", "Xy9_Ab5.mp3", "Xy10_A5.mp3",
@@ -61,7 +62,6 @@ String xylophone[numKeys] = {"Xy1_C5.mp3", "Xy2_Db5.mp3",
   "Xy15_D6.mp3", "Xy16_Eb6.mp3", "Xy17_E6.mp3", "Xy18_F6.mp3",
   "Xy19_Gb6.mp3","Xy20_G6.mp3", "Xy21_Ab6.mp3", "Xy22_A6.mp3",
   "Xy23_Bb6.mp3", "Xy24_B6.mp3", "Xy25_C7.mp3" };
-
 
 
 // include SPI, MP3 and SD libraries
@@ -90,7 +90,7 @@ String xylophone[numKeys] = {"Xy1_C5.mp3", "Xy2_Db5.mp3",
 Adafruit_VS1053_FilePlayer musicPlayer =
     Adafruit_VS1053_FilePlayer(SHIELD_RESET, SHIELD_CS, SHIELD_DCS, DREQ, CARDCS);
 
-char filename[14];
+char filename[15];
 int i = 0;
 
 
@@ -136,9 +136,6 @@ void setup()
 	Serial.begin(115200);
 	initializeDigitalInputs();
 
-
-  Serial.println("Adafruit VS1053 Simple Test");
-
   if (! musicPlayer.begin()) { // initialise the music player
      Serial.println(F("Couldn't find VS1053, do you have the right pins defined?"));
      while (1);
@@ -150,19 +147,9 @@ void setup()
   // Set volume for left, right channels. lower numbers == louder volume!
   musicPlayer.setVolume(20,20);
 
-  // Timer interrupts are not suggested, better to use DREQ interrupt!
-  //musicPlayer.useInterrupt(VS1053_FILEPLAYER_TIMER0_INT); // timer int
-
   // If DREQ is on an interrupt pin (on uno, #2 or #3) we can do background
   // audio playing
   musicPlayer.useInterrupt(VS1053_FILEPLAYER_PIN_INT);  // DREQ int
-  
-  // Play one file, don't return until complete
-  Serial.println(F("Playing track 001"));
-  musicPlayer.playFullFile("track001.mp3");
-  // Play another file in the background, REQUIRES interrupts!
-  Serial.println(F("Playing track 002"));
-  musicPlayer.startPlayingFile("track002.mp3");
 }
 
 void loop()
@@ -177,14 +164,21 @@ void checkSensors()
 	{
 		if (!digitalRead(step_arrays[i]))
 		{
-      musicPlayer.startPlayingFile("insert file name here");
+		  char filename[15];
+      int i = 0;
+      piano[i].toCharArray(filename, 15);
+      musicPlayer.startPlayingFile(filename);
+//      unsigned long startTime = millis();
+//      while ((millis()-startTime) < 75);
+//      musicPlayer.stopPlaying();
+//      i++;
+//      if (i == 25) i = 0;
 		}
 	}
 }
 
 void changeInstrument()
-{
-  
+{ 
 }
 
 void initializeDigitalInputs()
@@ -194,16 +188,3 @@ void initializeDigitalInputs()
 		pinMode(step_arrays[i], INTPUT);
 	}
 }
-
-
-
-/*
- * LAYOUT
- *
- * 1. Each step has an IR led and IR receiver pair
- * 2. The IR LEDs are pulsed at the appropriate carrier frequency
- *    of the IR detector (38.5 kHz)
- * 3. When IR LED & detector pair are interrupted, a "step" has
- *    been made
- * 4. Triggers signal to play a "note"
- */
