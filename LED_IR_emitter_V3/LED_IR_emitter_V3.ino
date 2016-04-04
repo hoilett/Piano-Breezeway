@@ -1,51 +1,50 @@
 const uint8_t IR_PIN = 6;
+const uint8_t sync = 8;
 
 void setup()
 {
   pinMode(IR_PIN,OUTPUT);
+  pinMode(sync,OUTPUT);
   Serial.begin(115200);
   delay(1000);
 }
 
 void loop()
 {
-  int halfPeriod = 6;
-  int cycles = 600/30.0;
-  //int cycles = 1200/30.0;
-
-  unsigned long ln1 = 0;
-  unsigned long ln2 = 0;
-
-  //5*1550 ~ 7.75 ms ~ 7ms
-  for (int i = 0; i < 5; i++)
-  { 
-    //650 us //* 2
-    ln1 = micros();
+  //digitalWrite(sync, HIGH);
+  for (int i = 0; i < 3; i++)
+  {
     for (int j = 0; j <= 23; j++)
     {
-      //ln1 = micros();
       digitalWrite(IR_PIN, HIGH);
-      delayMicroseconds(halfPeriod);
+      delayMicroseconds(6);
       digitalWrite(IR_PIN, LOW);
-      delayMicroseconds(halfPeriod);  
-      //ln2 = micros();
-
-//      Serial.println(ln1);
-//      Serial.println(ln2);
-//      Serial.end();
+      delayMicroseconds(6);
     }
-    ln2 = micros();
-//      Serial.println(ln1);
-//      Serial.println(ln2);
-//      Serial.end();
-
-    //600 us
     digitalWrite(IR_PIN,LOW);
+
+    
     delayMicroseconds(900);
-    //delayMicroseconds(600);
   }
 
-  delay(25);
+  delay(80);
+
+//  for (int i = 0; i < 2; i++)
+//  { 
+//    for (int j = 0; j <= 11; j++)
+//    {
+//      digitalWrite(IR_PIN, HIGH);
+//      delayMicroseconds(6);
+//      digitalWrite(IR_PIN, LOW);
+//      delayMicroseconds(6);  
+//    }
+//    digitalWrite(IR_PIN,LOW);
+//    delayMicroseconds(450);
+//  }
+//
+//  digitalWrite(sync, LOW);
+//  delay(50);
+  
 }
 
 

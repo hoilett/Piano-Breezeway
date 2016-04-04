@@ -19,33 +19,19 @@ void loop()
   //5*1550 ~ 7.75 ms ~ 7ms
   for (int i = 0; i < 5; i++)
   { 
-    //650 us //* 2
     ln1 = micros();
     for (int j = 0; j <= 23; j++)
     {
-      //ln1 = micros();
       digitalWrite(IR_PIN, HIGH);
       delayMicroseconds(halfPeriod);
       digitalWrite(IR_PIN, LOW);
       delayMicroseconds(halfPeriod);  
-      //ln2 = micros();
-
-//      Serial.println(ln1);
-//      Serial.println(ln2);
-//      Serial.end();
     }
-    ln2 = micros();
-//      Serial.println(ln1);
-//      Serial.println(ln2);
-//      Serial.end();
-
-    //600 us
     digitalWrite(IR_PIN,LOW);
     delayMicroseconds(900);
-    //delayMicroseconds(600);
   }
 
-  delay(25);
+  delay(50);
 }
 
 

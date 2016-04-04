@@ -128,7 +128,7 @@ boolean sampleClear[array_samples] = {true};
 uint8_t lastNote = 255;
 unsigned long lastPlay = 0;
 
-const uint8_t sync = 52;
+const uint8_t sync = 50;
 
 void setup()
 {
@@ -154,8 +154,6 @@ void setup()
 
 void loop()
 {
-  unsigned long ln = micros();
-  unsigned long tn = 0;
   uint16_t i = 0;
   
   for (uint8_t y = 0; y < numKeys; y++)
@@ -163,97 +161,59 @@ void loop()
     samples[y] = 0;
   }
 
-  Serial.println(millis());
-  while(!digitalRead(sync))
-  {
-//    Serial.println("not ready");
-//    Serial.end();
-  }
-  //Serial.println(digital
+  while(!digitalRead(sync));
   while (i < array_samples)
   {
     unsigned long p = micros();
     for (uint8_t y = 0; y < numKeys; y++)
     {
-      //samples[y] += !digitalRead(step_array[y]);
       if (!digitalRead(step_array[y])) samples[y] += 1;
     }
     i++;
     while(micros()-p < 145);
-    //delayMicroseconds(120);
   }
-  Serial.println(millis());
-  //Serial.end();
-  Serial.println(samples[0]);
-  if (samples[0] < 2 && sampleClear[0])
+
+
+//  if (samples[0] < 2 && sampleClear[0])
+//  {
+//    sampleClear[0] = false;
+//    char filename[15];
+//    piano[0].toCharArray(filename, 15);
+//    musicPlayer.startPlayingFile(filename);
+//    delay(80);
+//    musicPlayer.stopPlaying();
+//    lastNote = 0;
+//    lastPlay = millis();
+//  }
+//  else if (samples[0] > 7)
+//  {
+//    sampleClear[0] = true;
+//  }
+//  else {}
+  
+
+  for (uint8_t y = 0; y < numKeys; y++)
   {
-    sampleClear[0] = false;
-    Serial.print("sampleClear: ");
-    Serial.println(sampleClear[0]);
-//    Serial.println("TRUE!");
-//    Serial.print("MMILLLLLLLLL: ");
-//    Serial.println((millis() - lastPlay) > 100);
-    //if (0 != lastNote && (millis() - lastPlay) > 100)
-//    if ((millis() - lastPlay) > 100)
-//    {
-//      Serial.println("EVEN MORE TRUE!");
-      //musicPlayer.stopPlaying();
+    if (samples[y] < 2 && sampleClear[y])
+    {
+      sampleClear[y] = false;
       char filename[15];
-      piano[0].toCharArray(filename, 15);
-      //musicPlayer.playFullFile(filename);
+      piano[y].toCharArray(filename, 15);
       musicPlayer.startPlayingFile(filename);
-      //musicPlayer.stopPlaying();
-      ///sampleClear[0] = false;
-      //musicPlayer.playFullfilestartPlayingFile(filename);
       delay(80);
       musicPlayer.stopPlaying();
       lastNote = 0;
       lastPlay = millis();
-   // }
-//    lastNote = 0;
-//    lastPlay = millis();
+    }
+    else if (samples[y] > 7)
+    {
+      sampleClear[y] = true;
+    }
+    else {}
   }
-  else if (samples[0] > 7)
-  {
-    sampleClear[0] = true;
-    Serial.print("sampleClear: ");
-    Serial.println(sampleClear[0]);
-  }
-  else {}
-//  for (uint8_t y = 0; y < numKeys; y++)
-//  {
-//    if (samples[y] < 1)
-//    {
-//      musicPlayer.stopPlaying();
-//      char filename[15];
-//      piano[y].toCharArray(filename, 15);
-//      musicPlayer.startPlayingFile(filename);
-//    }
-//  }
 
-
-Serial.println('\n');
 }
 
-
-//void checkSensors()
-//{
-//	for (uint8_t i = 0; i < numSteps; i++)
-//	{
-//		if (!digitalRead(step_arrays[i]))
-//		{
-//		  char filename[15];
-//      int i = 0;
-//      piano[i].toCharArray(filename, 15);
-//      musicPlayer.startPlayingFile(filename);
-////      unsigned long startTime = millis();
-////      while ((millis()-startTime) < 75);
-////      musicPlayer.stopPlaying();
-////      i++;
-////      if (i == 25) i = 0;
-//		}
-//	}
-//}
 
 void initializeDigitalInputs()
 {
