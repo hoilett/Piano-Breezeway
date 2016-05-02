@@ -90,12 +90,12 @@ Adafruit_VS1053_FilePlayer musicPlayer =
 const uint8_t step_00 = 44;
 const uint8_t step_01 = 40;
 const uint8_t step_02 = 32;
-const uint8_t step_03 = 36;
+const uint8_t step_03 = 53;
 const uint8_t step_04 = 26;
-const uint8_t step_05 = 24;
+const uint8_t step_05 = 22;
 const uint8_t step_06 = 31;
 const uint8_t step_07 = 50;
-const uint8_t step_08 = 23;
+const uint8_t step_08 = 21;
 const uint8_t step_09 = 47;
 const uint8_t step_10 = 19;
 const uint8_t step_11 = 17;
@@ -162,6 +162,7 @@ void loop()
   
   clearSamplesArray();
   sampleDetectors();
+  Serial.println("hello");
   printSamples();
   play();
 
@@ -180,7 +181,8 @@ void clearSamplesArray()
 {
   for (uint8_t k = 0; k < numKeys; k++)
   {
-    sampleClear[k] = true;
+    samples[k] = 0;
+    //sampleClear[k] = true;
   }
 }
 
@@ -190,6 +192,7 @@ void clearSamplesArray()
 //
 void sampleDetectors()
 {
+  int i = 0;
   while(!digitalRead(sync));
   while (i < array_samples && digitalRead(sync))
   {
@@ -218,18 +221,19 @@ void play()
 {
   for (uint8_t y = 0; y < numKeys; y++)
   {
-    if (samples[y] < 2 && sampleClear[y])
+    if (samples[y] < 1 && sampleClear[y])
     {
       sampleClear[y] = false;
       char filename[15];
-      piano[y].toCharArray(filename, 15);
+      //piano[y].toCharArray(filename, 15);
+      xylophone[y].toCharArray(filename, 15);
       musicPlayer.startPlayingFile(filename);
-      delay(40); //no more than 70ms
+      delay(70); //no more than 70ms
       musicPlayer.stopPlaying();
       lastNote = y;
       lastPlay = millis();
     }
-    else if (samples[y] > 10)
+    else if (samples[y] > 4)
     {
       sampleClear[y] = true;
     }

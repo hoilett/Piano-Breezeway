@@ -11,7 +11,7 @@ void setup()
 
 void loop()
 {
-  //digitalWrite(sync, HIGH);
+  digitalWrite(sync, HIGH);
   for (int i = 0; i < 3; i++)
   {
     for (int j = 0; j <= 23; j++)
@@ -22,6 +22,7 @@ void loop()
       delayMicroseconds(6);
     }
     digitalWrite(IR_PIN,LOW);
+    digitalWrite(sync, LOW);
 
     
     delayMicroseconds(900);
