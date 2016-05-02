@@ -184,6 +184,9 @@ void clearSamplesArray()
     samples[k] = 0;
     //sampleClear[k] = true;
   }
+
+  //amples[numKeys-2] = 6;
+  //samples[numKeys-4] = 6;
 }
 
 
@@ -221,14 +224,15 @@ void play()
 {
   for (uint8_t y = 0; y < numKeys; y++)
   {
+    //if (samples[y] < 1 && sampleClear[y])
     if (samples[y] < 1 && sampleClear[y])
     {
       sampleClear[y] = false;
       char filename[15];
-      //piano[y].toCharArray(filename, 15);
-      xylophone[y].toCharArray(filename, 15);
+      piano[y].toCharArray(filename, 15);
+      //xylophone[y].toCharArray(filename, 15);
       musicPlayer.startPlayingFile(filename);
-      delay(70); //no more than 70ms
+      delay(50); //no more than 70ms
       musicPlayer.stopPlaying();
       lastNote = y;
       lastPlay = millis();
